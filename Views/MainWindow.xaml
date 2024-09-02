@@ -6,7 +6,19 @@
         xmlns:local="clr-namespace:TestingService"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+
     <Grid>
-        
+        <StackPanel HorizontalAlignment="Left">
+            <Button Content="Создать тест" Command="{Binding CreateNewTest}" Margin="10" Padding="5"/>
+            <StackPanel>
+                <ListView>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding TestTitle}"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </Window>

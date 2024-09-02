@@ -11,6 +11,7 @@
           </Key>
           <Property Name="AnswerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AnswerTitle" Type="varchar(max)" Nullable="false" />
+          <Property Name="AnswerCorrect" Type="int" />
         </EntityType>
         <EntityType Name="QuestionAnswers">
           <Key>
@@ -127,6 +128,7 @@
           </Key>
           <Property Name="AnswerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AnswerTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AnswerCorrect" Type="Int32" />
           <NavigationProperty Name="QuestionAnswers" Relationship="Self.FK__QuestionA__Answe__403A8C7D" FromRole="Answers" ToRole="QuestionAnswers" />
         </EntityType>
         <EntityType Name="QuestionAnswers">
@@ -251,6 +253,7 @@
               <MappingFragment StoreEntitySet="Answers">
                 <ScalarProperty Name="AnswerId" ColumnName="AnswerId" />
                 <ScalarProperty Name="AnswerTitle" ColumnName="AnswerTitle" />
+                <ScalarProperty Name="AnswerCorrect" ColumnName="AnswerCorrect" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

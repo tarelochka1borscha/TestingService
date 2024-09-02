@@ -22,6 +22,7 @@ namespace TestingService.Models
     
         public int AnswerId { get; set; }
         public string AnswerTitle { get; set; }
+        public Nullable<int> AnswerCorrect { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<QuestionAnswers> QuestionAnswers { get; set; }
