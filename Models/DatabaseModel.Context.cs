@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TestingService.Model
+namespace TestingService.Models
 {
     using System;
     using System.Data.Entity;

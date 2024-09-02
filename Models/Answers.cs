@@ -7,18 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TestingService.Model
+namespace TestingService.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class QuestionAnswers
+    public partial class Answers
     {
-        public int Id { get; set; }
-        public int QuestionId { get; set; }
-        public int AnswerId { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Answers()
+        {
+            this.QuestionAnswers = new HashSet<QuestionAnswers>();
+        }
     
-        public virtual Answers Answers { get; set; }
-        public virtual Questions Questions { get; set; }
+        public int AnswerId { get; set; }
+        public string AnswerTitle { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<QuestionAnswers> QuestionAnswers { get; set; }
     }
 }
