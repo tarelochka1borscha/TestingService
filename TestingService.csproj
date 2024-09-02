@@ -112,6 +112,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DatabaseModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\DataWork.cs" />
     <Compile Include="Models\QuestionAnswers.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
