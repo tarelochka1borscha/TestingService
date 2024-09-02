@@ -9,7 +9,7 @@
 
     <Grid>
         <StackPanel HorizontalAlignment="Left">
-            <Button Content="Создать тест" Command="{Binding CreateNewTest}" Margin="10" Padding="5"/>
+            <Button Content="Создать тест" Command="{Binding OpenAddNewTest}" Margin="10" Padding="5"/>
             <StackPanel>
                 <ListView>
                     <ListView.ItemTemplate>

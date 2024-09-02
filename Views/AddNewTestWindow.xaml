@@ -5,23 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestingService.Views"
         mc:Ignorable="d"
-        Title="Создание теста" Height="800" Width="800">
+        Title="Создание теста" Height="450" Width="560">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.05*"/>
             <RowDefinition Height="0.1*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="30,0,0,0">
-            <Button Content="На главную" Width="100" Height="30"/>
+        <StackPanel Orientation="Horizontal" Margin="30,0,0,0">
             <Button Content="Сохранить тест" Width="150" Height="30" Margin="10,0,0,0"/>
             <Button Content="Добавить вопрос" Width="150" Height="30" Margin="50,0,0,0"/>
         </StackPanel>
-        <StackPanel Grid.Row="3" Margin="30,0,0,0" HorizontalAlignment="Left">
+        <StackPanel Grid.Row="1" Margin="30,0,0,0" HorizontalAlignment="Left">
             <TextBlock Text="Название теста*"/>
-            <TextBox Width="500"/>
+            <TextBox Width="500" TextWrapping="Wrap"/>
             <TextBlock Text="Описание теста" Margin="0,10,0,0"/>
-            <TextBox Width="500"/>
+            <TextBox Width="500" TextWrapping="Wrap"/>
         </StackPanel>
     </Grid>
 </Window>

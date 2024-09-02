@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace TestingService.Models
 {
-    public static class DataWork
+    public static class WorkWithDatabase
     {
-        private static string errorMessage = "Неопознанная ошибка";
-        private static string successfulMessage = "Успешно";
+        private static string _errorMessage = "Неопознанная ошибка";
+        private static string _successfulMessage = "Успешно";
 
         public static List<Tests> GetTestsList() => DatabaseConnection.connection.Tests.ToList();
 
@@ -42,12 +42,12 @@ namespace TestingService.Models
 
                 DatabaseConnection.connection.SaveChanges();
 
-                return successfulMessage;
+                return _successfulMessage;
             }
             catch (Exception ex)
             { 
                 Console.WriteLine(ex.Message);
-                return errorMessage;
+                return _errorMessage;
             }
         }
         
@@ -59,12 +59,12 @@ namespace TestingService.Models
                 DatabaseConnection.connection.Tests.Add(test);
                 DatabaseConnection.connection.SaveChanges();
 
-                return successfulMessage;
+                return _successfulMessage;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                return errorMessage;
+                return _errorMessage;
             }
         }
     }
