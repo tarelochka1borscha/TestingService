@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -22,19 +23,12 @@ namespace TestingService.ViewModels
         }
 
         public string TestTitle { get; set; }
-
         public string TestDescription { get; set; }
 
-        private List<Questions> _questionsList;
-        public List<Questions> QuestionsList
-        {
-            get => _questionsList;
-            set
-            {
-                _questionsList = value;
-                NotifyPropertyChanged("QuestionsList");
-            }
-        }
+        public string QuestionTitle { get; set; }
+        public string QuestionDescription { get; set; }
+
+        public ObservableCollection<Questions> QuestionsList { get; set; }
 
 
         private RelayCommand _addNewQuestion;
@@ -66,7 +60,7 @@ namespace TestingService.ViewModels
         public AddNewTestPageViewModel()
         {
             _currentTest = new Tests();
-            QuestionsList = new List<Questions>();
+            QuestionsList = new ObservableCollection<Questions>();
             DatabaseConnection.connection = new DatabaseEntities();
         }
 
@@ -84,7 +78,6 @@ namespace TestingService.ViewModels
                     MessageBox.Show("Неопознанная ошибка");
                     Console.WriteLine(ex.Message);
                 }
-                MessageBox.Show($"{_currentTest.TestId} {_currentTest.TestTitle} {_currentTest.TestDescription}");
             }
             else
             {
@@ -99,12 +92,21 @@ namespace TestingService.ViewModels
                 MessageBox.Show("Не все поля заполнены!");
                 return false;
             }
+            foreach (Questions item in QuestionsList)
+            {
+                if ((item.QuestionTitle == null) || item.QuestionTypes == null)
+                {
+                    MessageBox.Show("Не все поля заполнены!");
+                    return false;
+                }
+            }
             return true;
         }
 
         private void NewQuestion()
         {
-
+            QuestionsList.Add(new Questions());
+            MessageBox.Show("Добавлен новый вопрос");
         }
     }
 }
