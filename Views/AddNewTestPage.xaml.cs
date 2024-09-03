@@ -10,18 +10,21 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TestingService.ViewModels;
 
 namespace TestingService.Views
 {
     /// <summary>
-    /// Логика взаимодействия для AddNewTestWindow.xaml
+    /// Логика взаимодействия для AddNewTestPage.xaml
     /// </summary>
-    public partial class AddNewTestWindow : Window
+    public partial class AddNewTestPage : Page
     {
-        public AddNewTestWindow()
+        public AddNewTestPage()
         {
             InitializeComponent();
+            DataContext = new AddNewTestPageViewModel();
         }
     }
 }

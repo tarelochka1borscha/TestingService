@@ -11,7 +11,7 @@ using TestingService.Views;
 
 namespace TestingService.ViewModels
 {
-    public class MainWindowViewModel : INotifyPropertyChanged
+    public class MainPageViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String propertyName)
@@ -29,12 +29,12 @@ namespace TestingService.ViewModels
             {
                 return _openAddNewTest ?? new RelayCommand(obj =>
                 {
-                    OpenAddNewTestWindow();
+                    OpenAddNewTest();
                 });
             }
         }
 
-        public MainWindowViewModel()
+        public MainPageViewModel()
         {
             DatabaseConnection.connection = new DatabaseEntities();
         }
@@ -42,12 +42,13 @@ namespace TestingService.ViewModels
 
 
 
-        private void OpenAddNewTestWindow()
+        private void OpenAddNewTest()
         {
-            AddNewTestWindow window = new AddNewTestWindow();
-            window.Owner = Application.Current.MainWindow;
-            window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            window.ShowDialog();
+            FrameClass.frame.Navigate(new AddNewTestPage());
+            //AddNewTestWindow window = new AddNewTestWindow();
+            //window.Owner = Application.Current.MainWindow;
+            //window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            //window.ShowDialog();
         }
     }
 }
