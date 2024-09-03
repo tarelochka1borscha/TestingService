@@ -26,7 +26,7 @@ namespace TestingService.ViewModels
             {
                 return _addNewQuestion ?? new RelayCommand(obj =>
                 {
-                    NewQuestion()
+                    NewQuestion();
                 });
             }
         }
