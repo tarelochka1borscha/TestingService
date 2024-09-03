@@ -29,7 +29,7 @@ namespace TestingService.ViewModels
             {
                 return _openAddNewTest ?? new RelayCommand(obj =>
                 {
-                    OpenAddNewTest();
+                    AddNewTest();
                 });
             }
         }
@@ -42,7 +42,7 @@ namespace TestingService.ViewModels
 
 
 
-        private void OpenAddNewTest()
+        private void AddNewTest()
         {
             FrameClass.frame.Navigate(new AddNewTestPage());
             //AddNewTestWindow window = new AddNewTestWindow();
