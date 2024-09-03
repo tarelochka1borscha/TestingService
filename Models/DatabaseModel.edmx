@@ -10,67 +10,48 @@
             <PropertyRef Name="AnswerId" />
           </Key>
           <Property Name="AnswerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="AnswerTitle" Type="varchar(max)" Nullable="false" />
-          <Property Name="AnswerCorrect" Type="int" />
-        </EntityType>
-        <EntityType Name="QuestionAnswers">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AnswerTitle" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="AnswerIsCorrect" Type="int" />
           <Property Name="QuestionId" Type="int" Nullable="false" />
-          <Property Name="AnswerId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Questions">
           <Key>
             <PropertyRef Name="QuestionId" />
           </Key>
           <Property Name="QuestionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="QuestionTitle" Type="varchar(max)" Nullable="false" />
-          <Property Name="QuestionDescription" Type="varchar(max)" />
+          <Property Name="QuestionTitle" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="QuestionDescription" Type="nvarchar(max)" />
           <Property Name="QuestionTypeId" Type="int" Nullable="false" />
-          <Property Name="TestId" Type="int" Nullable="false" />
+          <Property Name="QuestionTestId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="QuestionTypes">
           <Key>
             <PropertyRef Name="QuestionTypeId" />
           </Key>
           <Property Name="QuestionTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="QuestionTypeTitle" Type="varchar(max)" Nullable="false" />
+          <Property Name="QuestionTypeTitle" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Tests">
           <Key>
             <PropertyRef Name="TestId" />
           </Key>
           <Property Name="TestId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TestTitle" Type="varchar(max)" Nullable="false" />
-          <Property Name="TestDescription" Type="varchar(max)" />
+          <Property Name="TestTitle" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="TestDescription" Type="nvarchar(max)" />
         </EntityType>
-        <Association Name="FK__QuestionA__Answe__403A8C7D">
-          <End Role="Answers" Type="Self.Answers" Multiplicity="1" />
-          <End Role="QuestionAnswers" Type="Self.QuestionAnswers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Answers">
-              <PropertyRef Name="AnswerId" />
-            </Principal>
-            <Dependent Role="QuestionAnswers">
-              <PropertyRef Name="AnswerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__QuestionA__Quest__3F466844">
+        <Association Name="FK__Answers__Questio__3E52440B">
           <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
-          <End Role="QuestionAnswers" Type="Self.QuestionAnswers" Multiplicity="*" />
+          <End Role="Answers" Type="Self.Answers" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Questions">
               <PropertyRef Name="QuestionId" />
             </Principal>
-            <Dependent Role="QuestionAnswers">
+            <Dependent Role="Answers">
               <PropertyRef Name="QuestionId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Questions__Quest__3C69FB99">
+        <Association Name="FK__Questions__Quest__3A81B327">
           <End Role="QuestionTypes" Type="Self.QuestionTypes" Multiplicity="1" />
           <End Role="Questions" Type="Self.Questions" Multiplicity="*" />
           <ReferentialConstraint>
@@ -82,7 +63,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Questions__TestI__47DBAE45">
+        <Association Name="FK__Questions__Quest__3B75D760">
           <End Role="Tests" Type="Self.Tests" Multiplicity="1" />
           <End Role="Questions" Type="Self.Questions" Multiplicity="*" />
           <ReferentialConstraint>
@@ -90,29 +71,24 @@
               <PropertyRef Name="TestId" />
             </Principal>
             <Dependent Role="Questions">
-              <PropertyRef Name="TestId" />
+              <PropertyRef Name="QuestionTestId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Хранилище DatabaseModelContainer">
           <EntitySet Name="Answers" EntityType="Self.Answers" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="QuestionAnswers" EntityType="Self.QuestionAnswers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Questions" EntityType="Self.Questions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="QuestionTypes" EntityType="Self.QuestionTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tests" EntityType="Self.Tests" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__QuestionA__Answe__403A8C7D" Association="Self.FK__QuestionA__Answe__403A8C7D">
-            <End Role="Answers" EntitySet="Answers" />
-            <End Role="QuestionAnswers" EntitySet="QuestionAnswers" />
-          </AssociationSet>
-          <AssociationSet Name="FK__QuestionA__Quest__3F466844" Association="Self.FK__QuestionA__Quest__3F466844">
+          <AssociationSet Name="FK__Answers__Questio__3E52440B" Association="Self.FK__Answers__Questio__3E52440B">
             <End Role="Questions" EntitySet="Questions" />
-            <End Role="QuestionAnswers" EntitySet="QuestionAnswers" />
+            <End Role="Answers" EntitySet="Answers" />
           </AssociationSet>
-          <AssociationSet Name="FK__Questions__Quest__3C69FB99" Association="Self.FK__Questions__Quest__3C69FB99">
+          <AssociationSet Name="FK__Questions__Quest__3A81B327" Association="Self.FK__Questions__Quest__3A81B327">
             <End Role="QuestionTypes" EntitySet="QuestionTypes" />
             <End Role="Questions" EntitySet="Questions" />
           </AssociationSet>
-          <AssociationSet Name="FK__Questions__TestI__47DBAE45" Association="Self.FK__Questions__TestI__47DBAE45">
+          <AssociationSet Name="FK__Questions__Quest__3B75D760" Association="Self.FK__Questions__Quest__3B75D760">
             <End Role="Tests" EntitySet="Tests" />
             <End Role="Questions" EntitySet="Questions" />
           </AssociationSet>
@@ -127,75 +103,54 @@
             <PropertyRef Name="AnswerId" />
           </Key>
           <Property Name="AnswerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AnswerTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="AnswerCorrect" Type="Int32" />
-          <NavigationProperty Name="QuestionAnswers" Relationship="Self.FK__QuestionA__Answe__403A8C7D" FromRole="Answers" ToRole="QuestionAnswers" />
-        </EntityType>
-        <EntityType Name="QuestionAnswers">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AnswerTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AnswerIsCorrect" Type="Int32" />
           <Property Name="QuestionId" Type="Int32" Nullable="false" />
-          <Property Name="AnswerId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Answers" Relationship="Self.FK__QuestionA__Answe__403A8C7D" FromRole="QuestionAnswers" ToRole="Answers" />
-          <NavigationProperty Name="Questions" Relationship="Self.FK__QuestionA__Quest__3F466844" FromRole="QuestionAnswers" ToRole="Questions" />
+          <NavigationProperty Name="Questions" Relationship="Self.FK__Answers__Questio__3E52440B" FromRole="Answers" ToRole="Questions" />
         </EntityType>
         <EntityType Name="Questions">
           <Key>
             <PropertyRef Name="QuestionId" />
           </Key>
           <Property Name="QuestionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="QuestionTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="QuestionDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="QuestionTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="QuestionDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="QuestionTypeId" Type="Int32" Nullable="false" />
-          <Property Name="TestId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="QuestionAnswers" Relationship="Self.FK__QuestionA__Quest__3F466844" FromRole="Questions" ToRole="QuestionAnswers" />
-          <NavigationProperty Name="QuestionTypes" Relationship="Self.FK__Questions__Quest__3C69FB99" FromRole="Questions" ToRole="QuestionTypes" />
-          <NavigationProperty Name="Tests" Relationship="Self.FK__Questions__TestI__47DBAE45" FromRole="Questions" ToRole="Tests" />
+          <Property Name="QuestionTestId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Answers" Relationship="Self.FK__Answers__Questio__3E52440B" FromRole="Questions" ToRole="Answers" />
+          <NavigationProperty Name="QuestionTypes" Relationship="Self.FK__Questions__Quest__3A81B327" FromRole="Questions" ToRole="QuestionTypes" />
+          <NavigationProperty Name="Tests" Relationship="Self.FK__Questions__Quest__3B75D760" FromRole="Questions" ToRole="Tests" />
         </EntityType>
         <EntityType Name="QuestionTypes">
           <Key>
             <PropertyRef Name="QuestionTypeId" />
           </Key>
           <Property Name="QuestionTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="QuestionTypeTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Questions" Relationship="Self.FK__Questions__Quest__3C69FB99" FromRole="QuestionTypes" ToRole="Questions" />
+          <Property Name="QuestionTypeTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Questions" Relationship="Self.FK__Questions__Quest__3A81B327" FromRole="QuestionTypes" ToRole="Questions" />
         </EntityType>
         <EntityType Name="Tests">
           <Key>
             <PropertyRef Name="TestId" />
           </Key>
           <Property Name="TestId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TestTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="TestDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Questions" Relationship="Self.FK__Questions__TestI__47DBAE45" FromRole="Tests" ToRole="Questions" />
+          <Property Name="TestTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TestDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Questions" Relationship="Self.FK__Questions__Quest__3B75D760" FromRole="Tests" ToRole="Questions" />
         </EntityType>
-        <Association Name="FK__QuestionA__Answe__403A8C7D">
-          <End Role="Answers" Type="Self.Answers" Multiplicity="1" />
-          <End Role="QuestionAnswers" Type="Self.QuestionAnswers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Answers">
-              <PropertyRef Name="AnswerId" />
-            </Principal>
-            <Dependent Role="QuestionAnswers">
-              <PropertyRef Name="AnswerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__QuestionA__Quest__3F466844">
+        <Association Name="FK__Answers__Questio__3E52440B">
           <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
-          <End Role="QuestionAnswers" Type="Self.QuestionAnswers" Multiplicity="*" />
+          <End Role="Answers" Type="Self.Answers" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Questions">
               <PropertyRef Name="QuestionId" />
             </Principal>
-            <Dependent Role="QuestionAnswers">
+            <Dependent Role="Answers">
               <PropertyRef Name="QuestionId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Questions__Quest__3C69FB99">
+        <Association Name="FK__Questions__Quest__3A81B327">
           <End Role="QuestionTypes" Type="Self.QuestionTypes" Multiplicity="1" />
           <End Role="Questions" Type="Self.Questions" Multiplicity="*" />
           <ReferentialConstraint>
@@ -207,7 +162,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Questions__TestI__47DBAE45">
+        <Association Name="FK__Questions__Quest__3B75D760">
           <End Role="Tests" Type="Self.Tests" Multiplicity="1" />
           <End Role="Questions" Type="Self.Questions" Multiplicity="*" />
           <ReferentialConstraint>
@@ -215,29 +170,24 @@
               <PropertyRef Name="TestId" />
             </Principal>
             <Dependent Role="Questions">
-              <PropertyRef Name="TestId" />
+              <PropertyRef Name="QuestionTestId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="DatabaseEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Answers" EntityType="Self.Answers" />
-          <EntitySet Name="QuestionAnswers" EntityType="Self.QuestionAnswers" />
           <EntitySet Name="Questions" EntityType="Self.Questions" />
           <EntitySet Name="QuestionTypes" EntityType="Self.QuestionTypes" />
           <EntitySet Name="Tests" EntityType="Self.Tests" />
-          <AssociationSet Name="FK__QuestionA__Answe__403A8C7D" Association="Self.FK__QuestionA__Answe__403A8C7D">
-            <End Role="Answers" EntitySet="Answers" />
-            <End Role="QuestionAnswers" EntitySet="QuestionAnswers" />
-          </AssociationSet>
-          <AssociationSet Name="FK__QuestionA__Quest__3F466844" Association="Self.FK__QuestionA__Quest__3F466844">
+          <AssociationSet Name="FK__Answers__Questio__3E52440B" Association="Self.FK__Answers__Questio__3E52440B">
             <End Role="Questions" EntitySet="Questions" />
-            <End Role="QuestionAnswers" EntitySet="QuestionAnswers" />
+            <End Role="Answers" EntitySet="Answers" />
           </AssociationSet>
-          <AssociationSet Name="FK__Questions__Quest__3C69FB99" Association="Self.FK__Questions__Quest__3C69FB99">
+          <AssociationSet Name="FK__Questions__Quest__3A81B327" Association="Self.FK__Questions__Quest__3A81B327">
             <End Role="QuestionTypes" EntitySet="QuestionTypes" />
             <End Role="Questions" EntitySet="Questions" />
           </AssociationSet>
-          <AssociationSet Name="FK__Questions__TestI__47DBAE45" Association="Self.FK__Questions__TestI__47DBAE45">
+          <AssociationSet Name="FK__Questions__Quest__3B75D760" Association="Self.FK__Questions__Quest__3B75D760">
             <End Role="Tests" EntitySet="Tests" />
             <End Role="Questions" EntitySet="Questions" />
           </AssociationSet>
@@ -253,16 +203,8 @@
               <MappingFragment StoreEntitySet="Answers">
                 <ScalarProperty Name="AnswerId" ColumnName="AnswerId" />
                 <ScalarProperty Name="AnswerTitle" ColumnName="AnswerTitle" />
-                <ScalarProperty Name="AnswerCorrect" ColumnName="AnswerCorrect" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="QuestionAnswers">
-            <EntityTypeMapping TypeName="DatabaseModel.QuestionAnswers">
-              <MappingFragment StoreEntitySet="QuestionAnswers">
-                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AnswerIsCorrect" ColumnName="AnswerIsCorrect" />
                 <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
-                <ScalarProperty Name="AnswerId" ColumnName="AnswerId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -273,7 +215,7 @@
                 <ScalarProperty Name="QuestionTitle" ColumnName="QuestionTitle" />
                 <ScalarProperty Name="QuestionDescription" ColumnName="QuestionDescription" />
                 <ScalarProperty Name="QuestionTypeId" ColumnName="QuestionTypeId" />
-                <ScalarProperty Name="TestId" ColumnName="TestId" />
+                <ScalarProperty Name="QuestionTestId" ColumnName="QuestionTestId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

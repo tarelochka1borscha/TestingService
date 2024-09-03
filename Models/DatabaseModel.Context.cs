@@ -26,7 +26,6 @@ namespace TestingService.Models
         }
     
         public virtual DbSet<Answers> Answers { get; set; }
-        public virtual DbSet<QuestionAnswers> QuestionAnswers { get; set; }
         public virtual DbSet<Questions> Questions { get; set; }
         public virtual DbSet<QuestionTypes> QuestionTypes { get; set; }
         public virtual DbSet<Tests> Tests { get; set; }

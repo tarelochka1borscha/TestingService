@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Data.Entity;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -28,7 +29,10 @@ namespace TestingService.ViewModels
         public string QuestionTitle { get; set; }
         public string QuestionDescription { get; set; }
 
+        public int QuestionType { get; set; }
+
         public ObservableCollection<Questions> QuestionsList { get; set; }
+        public ObservableCollection<QuestionTypes> QuestionTypesList { get; set; }
 
 
         private RelayCommand _addNewQuestion;
@@ -62,6 +66,14 @@ namespace TestingService.ViewModels
             _currentTest = new Tests();
             QuestionsList = new ObservableCollection<Questions>();
             DatabaseConnection.connection = new DatabaseEntities();
+            QuestionTypesList = new ObservableCollection<QuestionTypes>(DatabaseConnection.connection.QuestionTypes.ToList());
+
+            QuestionTypes b = new QuestionTypes { QuestionTypeTitle = "Выбор одного варианта ответа" };
+            DatabaseConnection.connection.QuestionTypes.Add(b);
+            DatabaseConnection.connection.SaveChanges();
+
+            QuestionTypes a = DatabaseConnection.connection.QuestionTypes.FirstOrDefault(x=>x.QuestionTypeId == 1);
+            MessageBox.Show(a.QuestionTypeTitle);
         }
 
         private void UpdateData()

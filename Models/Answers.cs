@@ -14,17 +14,11 @@ namespace TestingService.Models
     
     public partial class Answers
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Answers()
-        {
-            this.QuestionAnswers = new HashSet<QuestionAnswers>();
-        }
-    
         public int AnswerId { get; set; }
         public string AnswerTitle { get; set; }
-        public Nullable<int> AnswerCorrect { get; set; }
+        public Nullable<int> AnswerIsCorrect { get; set; }
+        public int QuestionId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<QuestionAnswers> QuestionAnswers { get; set; }
+        public virtual Questions Questions { get; set; }
     }
 }
