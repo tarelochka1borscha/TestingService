@@ -5,15 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="Хранилище DatabaseModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Answers">
-          <Key>
-            <PropertyRef Name="AnswerId" />
-          </Key>
-          <Property Name="AnswerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="AnswerTitle" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="AnswerIsCorrect" Type="int" />
-          <Property Name="QuestionId" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="Questions">
           <Key>
             <PropertyRef Name="QuestionId" />
@@ -21,15 +12,8 @@
           <Property Name="QuestionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="QuestionTitle" Type="nvarchar(max)" Nullable="false" />
           <Property Name="QuestionDescription" Type="nvarchar(max)" />
-          <Property Name="QuestionTypeId" Type="int" Nullable="false" />
+          <Property Name="QuestionAnswer" Type="nvarchar(max)" Nullable="false" />
           <Property Name="QuestionTestId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="QuestionTypes">
-          <Key>
-            <PropertyRef Name="QuestionTypeId" />
-          </Key>
-          <Property Name="QuestionTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="QuestionTypeTitle" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Tests">
           <Key>
@@ -39,31 +23,7 @@
           <Property Name="TestTitle" Type="nvarchar(max)" Nullable="false" />
           <Property Name="TestDescription" Type="nvarchar(max)" />
         </EntityType>
-        <Association Name="FK__Answers__Questio__3E52440B">
-          <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
-          <End Role="Answers" Type="Self.Answers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Questions">
-              <PropertyRef Name="QuestionId" />
-            </Principal>
-            <Dependent Role="Answers">
-              <PropertyRef Name="QuestionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Questions__Quest__3A81B327">
-          <End Role="QuestionTypes" Type="Self.QuestionTypes" Multiplicity="1" />
-          <End Role="Questions" Type="Self.Questions" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="QuestionTypes">
-              <PropertyRef Name="QuestionTypeId" />
-            </Principal>
-            <Dependent Role="Questions">
-              <PropertyRef Name="QuestionTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Questions__Quest__3B75D760">
+        <Association Name="FK__Questions__Quest__38996AB5">
           <End Role="Tests" Type="Self.Tests" Multiplicity="1" />
           <End Role="Questions" Type="Self.Questions" Multiplicity="*" />
           <ReferentialConstraint>
@@ -76,19 +36,9 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Хранилище DatabaseModelContainer">
-          <EntitySet Name="Answers" EntityType="Self.Answers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Questions" EntityType="Self.Questions" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="QuestionTypes" EntityType="Self.QuestionTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tests" EntityType="Self.Tests" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Answers__Questio__3E52440B" Association="Self.FK__Answers__Questio__3E52440B">
-            <End Role="Questions" EntitySet="Questions" />
-            <End Role="Answers" EntitySet="Answers" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Questions__Quest__3A81B327" Association="Self.FK__Questions__Quest__3A81B327">
-            <End Role="QuestionTypes" EntitySet="QuestionTypes" />
-            <End Role="Questions" EntitySet="Questions" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Questions__Quest__3B75D760" Association="Self.FK__Questions__Quest__3B75D760">
+          <AssociationSet Name="FK__Questions__Quest__38996AB5" Association="Self.FK__Questions__Quest__38996AB5">
             <End Role="Tests" EntitySet="Tests" />
             <End Role="Questions" EntitySet="Questions" />
           </AssociationSet>
@@ -98,16 +48,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Answers">
-          <Key>
-            <PropertyRef Name="AnswerId" />
-          </Key>
-          <Property Name="AnswerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AnswerTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="AnswerIsCorrect" Type="Int32" />
-          <Property Name="QuestionId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Questions" Relationship="Self.FK__Answers__Questio__3E52440B" FromRole="Answers" ToRole="Questions" />
-        </EntityType>
         <EntityType Name="Questions">
           <Key>
             <PropertyRef Name="QuestionId" />
@@ -115,19 +55,9 @@
           <Property Name="QuestionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="QuestionTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="QuestionDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="QuestionTypeId" Type="Int32" Nullable="false" />
+          <Property Name="QuestionAnswer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="QuestionTestId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Answers" Relationship="Self.FK__Answers__Questio__3E52440B" FromRole="Questions" ToRole="Answers" />
-          <NavigationProperty Name="QuestionTypes" Relationship="Self.FK__Questions__Quest__3A81B327" FromRole="Questions" ToRole="QuestionTypes" />
-          <NavigationProperty Name="Tests" Relationship="Self.FK__Questions__Quest__3B75D760" FromRole="Questions" ToRole="Tests" />
-        </EntityType>
-        <EntityType Name="QuestionTypes">
-          <Key>
-            <PropertyRef Name="QuestionTypeId" />
-          </Key>
-          <Property Name="QuestionTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="QuestionTypeTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Questions" Relationship="Self.FK__Questions__Quest__3A81B327" FromRole="QuestionTypes" ToRole="Questions" />
+          <NavigationProperty Name="Tests" Relationship="Self.FK__Questions__Quest__38996AB5" FromRole="Questions" ToRole="Tests" />
         </EntityType>
         <EntityType Name="Tests">
           <Key>
@@ -136,33 +66,9 @@
           <Property Name="TestId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TestTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="TestDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Questions" Relationship="Self.FK__Questions__Quest__3B75D760" FromRole="Tests" ToRole="Questions" />
+          <NavigationProperty Name="Questions" Relationship="Self.FK__Questions__Quest__38996AB5" FromRole="Tests" ToRole="Questions" />
         </EntityType>
-        <Association Name="FK__Answers__Questio__3E52440B">
-          <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
-          <End Role="Answers" Type="Self.Answers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Questions">
-              <PropertyRef Name="QuestionId" />
-            </Principal>
-            <Dependent Role="Answers">
-              <PropertyRef Name="QuestionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Questions__Quest__3A81B327">
-          <End Role="QuestionTypes" Type="Self.QuestionTypes" Multiplicity="1" />
-          <End Role="Questions" Type="Self.Questions" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="QuestionTypes">
-              <PropertyRef Name="QuestionTypeId" />
-            </Principal>
-            <Dependent Role="Questions">
-              <PropertyRef Name="QuestionTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Questions__Quest__3B75D760">
+        <Association Name="FK__Questions__Quest__38996AB5">
           <End Role="Tests" Type="Self.Tests" Multiplicity="1" />
           <End Role="Questions" Type="Self.Questions" Multiplicity="*" />
           <ReferentialConstraint>
@@ -175,19 +81,9 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="DatabaseEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Answers" EntityType="Self.Answers" />
           <EntitySet Name="Questions" EntityType="Self.Questions" />
-          <EntitySet Name="QuestionTypes" EntityType="Self.QuestionTypes" />
           <EntitySet Name="Tests" EntityType="Self.Tests" />
-          <AssociationSet Name="FK__Answers__Questio__3E52440B" Association="Self.FK__Answers__Questio__3E52440B">
-            <End Role="Questions" EntitySet="Questions" />
-            <End Role="Answers" EntitySet="Answers" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Questions__Quest__3A81B327" Association="Self.FK__Questions__Quest__3A81B327">
-            <End Role="QuestionTypes" EntitySet="QuestionTypes" />
-            <End Role="Questions" EntitySet="Questions" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Questions__Quest__3B75D760" Association="Self.FK__Questions__Quest__3B75D760">
+          <AssociationSet Name="FK__Questions__Quest__38996AB5" Association="Self.FK__Questions__Quest__38996AB5">
             <End Role="Tests" EntitySet="Tests" />
             <End Role="Questions" EntitySet="Questions" />
           </AssociationSet>
@@ -198,32 +94,14 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="Хранилище DatabaseModelContainer" CdmEntityContainer="DatabaseEntities">
-          <EntitySetMapping Name="Answers">
-            <EntityTypeMapping TypeName="DatabaseModel.Answers">
-              <MappingFragment StoreEntitySet="Answers">
-                <ScalarProperty Name="AnswerId" ColumnName="AnswerId" />
-                <ScalarProperty Name="AnswerTitle" ColumnName="AnswerTitle" />
-                <ScalarProperty Name="AnswerIsCorrect" ColumnName="AnswerIsCorrect" />
-                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Questions">
             <EntityTypeMapping TypeName="DatabaseModel.Questions">
               <MappingFragment StoreEntitySet="Questions">
                 <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
                 <ScalarProperty Name="QuestionTitle" ColumnName="QuestionTitle" />
                 <ScalarProperty Name="QuestionDescription" ColumnName="QuestionDescription" />
-                <ScalarProperty Name="QuestionTypeId" ColumnName="QuestionTypeId" />
+                <ScalarProperty Name="QuestionAnswer" ColumnName="QuestionAnswer" />
                 <ScalarProperty Name="QuestionTestId" ColumnName="QuestionTestId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="QuestionTypes">
-            <EntityTypeMapping TypeName="DatabaseModel.QuestionTypes">
-              <MappingFragment StoreEntitySet="QuestionTypes">
-                <ScalarProperty Name="QuestionTypeId" ColumnName="QuestionTypeId" />
-                <ScalarProperty Name="QuestionTypeTitle" ColumnName="QuestionTypeTitle" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

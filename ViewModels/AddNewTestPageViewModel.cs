@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Security.Policy;
 using System.Windows;
 using TestingService.Models;
+using TestingService.Views;
 
 namespace TestingService.ViewModels
 {
@@ -25,23 +27,8 @@ namespace TestingService.ViewModels
         public string QuestionTitle { get; set; }
         public string QuestionDescription { get; set; }
 
-        private QuestionTypes _selectedQuestion;
-        public QuestionTypes SelectedQuestionType
-        {
-            get => _selectedQuestion;
-            set
-            {
-                if (_selectedQuestion != value)
-                {
-                    _selectedQuestion = value;
-                    NotifyPropertyChanged(nameof(SelectedQuestionType));
-                }
-            }
-        }
-
         public ObservableCollection<Questions> QuestionsList { get; set; }
 
-        public ObservableCollection<QuestionTypes> QuestionTypesList { get; set; }
 
         private RelayCommand _addNewQuestion;
         public RelayCommand AddNewQuestion
@@ -55,6 +42,33 @@ namespace TestingService.ViewModels
             }
         }
 
+        private RelayCommand _deleteQuestion;
+        public RelayCommand DeleteQuestion
+        {
+            get
+            {
+                return _deleteQuestion ??
+                  (_deleteQuestion = new RelayCommand(obj =>
+                  {
+                      Questions question = obj as Questions;
+                      RemoveQuestion(question);
+                  }));
+            }
+        }
+
+
+        private RelayCommand _backPage;
+        public RelayCommand BackPage
+        {
+            get
+            {
+                return _backPage ?? new RelayCommand(obj =>
+                {
+                    Back();
+                });
+            }
+        }
+
         private RelayCommand _saveTest;
         public RelayCommand SaveTest
         {
@@ -64,6 +78,17 @@ namespace TestingService.ViewModels
                 {
                     UpdateData();
                 });
+            }
+        }
+
+        private Questions _selectedQuestion;
+        public Questions SelectedQuestion
+        {
+            get => _selectedQuestion;
+            set
+            {
+                _selectedQuestion = value;
+                NotifyPropertyChanged(nameof(SelectedQuestion));
             }
         }
 
@@ -90,8 +115,6 @@ namespace TestingService.ViewModels
                     MessageBox.Show("Неопознанная ошибка");
                     Console.WriteLine(ex.Message);
                 }
-                foreach (Questions question in QuestionsList)
-                MessageBox.Show($"{question.QuestionTitle} {question.QuestionDescription} {question.QuestionTypeId}");
             }
             else
             {
@@ -108,7 +131,7 @@ namespace TestingService.ViewModels
             }
             foreach (Questions item in QuestionsList)
             {
-                if (item.QuestionTitle == null)
+                if ((item.QuestionTitle == null) || (item.QuestionAnswer == null))
                 {
                     MessageBox.Show("Не все поля заполнены!");
                     return false;
@@ -119,7 +142,17 @@ namespace TestingService.ViewModels
 
         private void NewQuestion()
         {
-            QuestionsList.Add(new Questions { QuestionTypeId = 3});
+            QuestionsList.Add(new Questions());
+        }
+
+        private void RemoveQuestion(Questions question)
+        {
+            QuestionsList.Remove(question);
+        }
+
+        private void Back()
+        {
+            FrameClass.frame.Navigate(new MainPage());
         }
     }
 }

@@ -25,9 +25,7 @@ namespace TestingService.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Answers> Answers { get; set; }
         public virtual DbSet<Questions> Questions { get; set; }
-        public virtual DbSet<QuestionTypes> QuestionTypes { get; set; }
         public virtual DbSet<Tests> Tests { get; set; }
     }
 }

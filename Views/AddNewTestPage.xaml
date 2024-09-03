@@ -14,8 +14,9 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Command="{Binding SaveTest}" Content="Сохранить тест" Width="150" Height="30" Margin="10,0,0,0"/>
-            <Button Command="{Binding AddNewQuestion}" Content="Добавить вопрос" Width="150" Height="30" Margin="50,0,0,0"/>
+            <Button Command="{Binding BackPage}" Content="К тестам" Width="150" Height="30" Margin="0,0,0,0"/>
+            <Button Command="{Binding SaveTest}" Content="Сохранить тест" Width="150" Height="30" Margin="20,0,0,0"/>
+            <Button Command="{Binding AddNewQuestion}" Content="Добавить вопрос" Width="150" Height="30" Margin="20,0,0,0"/>
         </StackPanel>
         <DockPanel Grid.Row="1" HorizontalAlignment="Center">
             <StackPanel DockPanel.Dock="Top">
@@ -25,7 +26,10 @@
                 <TextBox Text="{Binding TestDescription}" Width="500" TextWrapping="Wrap"/>
             </StackPanel>
             <ScrollViewer>
-                <ListView ItemsSource="{Binding QuestionsList}" Margin="0,10,0,10" Background="Transparent">
+                <ListView ItemsSource="{Binding QuestionsList}"
+                          SelectedItem="{Binding SelectedQuestion}"
+                          Margin="0,10,0,10"
+                          Background="Transparent">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel>
@@ -33,10 +37,16 @@
                                 <TextBox Text="{Binding QuestionTitle}" Width="300" TextWrapping="Wrap" Margin="0,5,0,10"/>
                                 <TextBlock Text="Описание"/>
                                 <TextBox Text="{Binding QuestionDescription}" Width="300" TextWrapping="Wrap" Margin="0,5,0,10"/>
-                                <Button Command="{Binding AddNewAnswer}" Content="Добавить ответ" Width="150"/>
+                                <TextBlock Text="Ответ*"/>
+                                <TextBox Text="{Binding QuestionAnswer}" Width="300" TextWrapping="Wrap" Margin="0,5,0,10"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
+                    <ListView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Command="{Binding DeleteQuestion}" CommandParameter="{Binding SelectedQuestion}" Header="Удалить"/>
+                        </ContextMenu>
+                    </ListView.ContextMenu>
                 </ListView>
             </ScrollViewer>
             

@@ -4,14 +4,10 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="60261fef65294d62ae551d57152706fb" Name="Diagram1">
-        <EntityTypeShape EntityType="DatabaseModel.Answers" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Questions" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.QuestionTypes" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Tests" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
-        <AssociationConnector Association="DatabaseModel.FK__Answers__Questio__3E52440B" ManuallyRouted="false" />
-        <AssociationConnector Association="DatabaseModel.FK__Questions__Quest__3A81B327" ManuallyRouted="false" />
-        <AssociationConnector Association="DatabaseModel.FK__Questions__Quest__3B75D760" ManuallyRouted="false" />
+      <Diagram DiagramId="ed35f9f51bc34cfd834911795bfe309f" Name="Diagram1">
+        <EntityTypeShape EntityType="DatabaseModel.Questions" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Tests" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <AssociationConnector Association="DatabaseModel.FK__Questions__Quest__38996AB5" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
