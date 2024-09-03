@@ -2,11 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Data.Entity;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using TestingService.Models;
 
@@ -29,11 +25,23 @@ namespace TestingService.ViewModels
         public string QuestionTitle { get; set; }
         public string QuestionDescription { get; set; }
 
-        public int QuestionType { get; set; }
+        private int _selectedQuestionType = 1;
+        public int SelectedQuestionType
+        {
+            get => _selectedQuestionType;
+            set
+            {
+                if (_selectedQuestionType != value)
+                {
+                    _selectedQuestionType = value;
+                    NotifyPropertyChanged(nameof(SelectedQuestionType));
+                }
+            }
+        }
 
         public ObservableCollection<Questions> QuestionsList { get; set; }
-        public ObservableCollection<QuestionTypes> QuestionTypesList { get; set; }
 
+        public ObservableCollection<QuestionTypes> QuestionTypesList { get; set; }
 
         private RelayCommand _addNewQuestion;
         public RelayCommand AddNewQuestion
@@ -66,14 +74,13 @@ namespace TestingService.ViewModels
             _currentTest = new Tests();
             QuestionsList = new ObservableCollection<Questions>();
             DatabaseConnection.connection = new DatabaseEntities();
-            QuestionTypesList = new ObservableCollection<QuestionTypes>(DatabaseConnection.connection.QuestionTypes.ToList());
+            List<QuestionTypes> a = DatabaseConnection.connection.QuestionTypes.ToList();
+            QuestionTypesList = new ObservableCollection<QuestionTypes>(a);
+            QuestionTypesList.Add(new QuestionTypes { QuestionTypeId = 5, QuestionTypeTitle = "ТЕСТ" });
 
-            QuestionTypes b = new QuestionTypes { QuestionTypeTitle = "Выбор одного варианта ответа" };
-            DatabaseConnection.connection.QuestionTypes.Add(b);
-            DatabaseConnection.connection.SaveChanges();
-
-            QuestionTypes a = DatabaseConnection.connection.QuestionTypes.FirstOrDefault(x=>x.QuestionTypeId == 1);
-            MessageBox.Show(a.QuestionTypeTitle);
+            //QuestionTypes b = new QuestionTypes { QuestionTypeTitle = "Выбор одного варианта ответа" };
+            //DatabaseConnection.connection.QuestionTypes.Add(b);
+            //DatabaseConnection.connection.SaveChanges();
         }
 
         private void UpdateData()
@@ -90,6 +97,15 @@ namespace TestingService.ViewModels
                     MessageBox.Show("Неопознанная ошибка");
                     Console.WriteLine(ex.Message);
                 }
+                foreach (var item in QuestionsList)
+                {
+                    //item.QuestionTypeId = SelectedQuestionType;
+                    MessageBox.Show($"{item.QuestionTitle} {item.QuestionTypeId}");
+
+                    MessageBox.Show("" + SelectedQuestionType);
+                }
+
+                
             }
             else
             {
@@ -99,14 +115,14 @@ namespace TestingService.ViewModels
 
         private bool CheckingData()
         {
-            if ((TestTitle == null) /*|| (QuestionsList.Count <= 0)*/)
+            if ((TestTitle == null) || (QuestionsList.Count <= 0))
             {
                 MessageBox.Show("Не все поля заполнены!");
                 return false;
             }
             foreach (Questions item in QuestionsList)
             {
-                if ((item.QuestionTitle == null) || item.QuestionTypes == null)
+                if ((item.QuestionTitle == null) /*|| item.QuestionTypeId == 0*/)
                 {
                     MessageBox.Show("Не все поля заполнены!");
                     return false;
@@ -118,7 +134,6 @@ namespace TestingService.ViewModels
         private void NewQuestion()
         {
             QuestionsList.Add(new Questions());
-            MessageBox.Show("Добавлен новый вопрос");
         }
     }
 }

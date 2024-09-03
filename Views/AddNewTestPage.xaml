@@ -32,7 +32,12 @@
                             <TextBlock Text="Описание"/>
                             <TextBox Text="{Binding QuestionDescription}" Width="300" TextWrapping="Wrap" Margin="0,5,0,10"/>
                             <TextBlock Text="Тип вопроса*"/>
-                            <ComboBox ItemsSource="{Binding DataContext.QuestionTypesList, RelativeSource={RelativeSource AncestorType=ItemsControl}}" SelectedValuePath="QuestionTypeId" DisplayMemberPath="QuestionTypeTitle" SelectedValue="{Binding QuestionType}" Width="300" Margin="0,5,0,10"/>
+                            <ComboBox ItemsSource="{Binding DataContext.QuestionTypesList, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                      DisplayMemberPath = "QuestionTypeTitle"
+                                      SelectedValuePath="QuestionTypeId" 
+                                      SelectedValue="{Binding DataContext.SelectedQuestionType, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=ListView}}"
+                                      Width="300"
+                                      Margin="0,5,0,10"/>
                             <Button Command="{Binding AddNewAnswer}" Content="Добавить ответ" Width="150"/>
                         </StackPanel>
                     </DataTemplate>
