@@ -26,7 +26,7 @@ namespace TestingService.ViewModels
         public string QuestionDescription { get; set; }
 
         private QuestionTypes _selectedQuestion;
-        public QuestionTypes SelectedQuestion
+        public QuestionTypes SelectedQuestionType
         {
             get => _selectedQuestion;
             set
@@ -34,7 +34,7 @@ namespace TestingService.ViewModels
                 if (_selectedQuestion != value)
                 {
                     _selectedQuestion = value;
-                    NotifyPropertyChanged(nameof(SelectedQuestion));
+                    NotifyPropertyChanged(nameof(SelectedQuestionType));
                 }
             }
         }
@@ -74,13 +74,6 @@ namespace TestingService.ViewModels
             _currentTest = new Tests();
             QuestionsList = new ObservableCollection<Questions>();
             DatabaseConnection.connection = new DatabaseEntities();
-            List<QuestionTypes> a = DatabaseConnection.connection.QuestionTypes.ToList();
-            QuestionTypesList = new ObservableCollection<QuestionTypes>(a);
-            QuestionTypesList.Add(new QuestionTypes { QuestionTypeId = 5, QuestionTypeTitle = "ТЕСТ" });
-
-            //QuestionTypes b = new QuestionTypes { QuestionTypeTitle = "Выбор одного варианта ответа" };
-            //DatabaseConnection.connection.QuestionTypes.Add(b);
-            //DatabaseConnection.connection.SaveChanges();
         }
 
         private void UpdateData()
@@ -97,15 +90,8 @@ namespace TestingService.ViewModels
                     MessageBox.Show("Неопознанная ошибка");
                     Console.WriteLine(ex.Message);
                 }
-                foreach (var item in QuestionsList)
-                {
-                    //item.QuestionTypeId = SelectedQuestionType;
-                    MessageBox.Show($"{item.QuestionTitle} {item.QuestionTypeId}");
-
-                    MessageBox.Show("" + SelectedQuestion.QuestionTypeId);
-                }
-
-                
+                foreach (Questions question in QuestionsList)
+                MessageBox.Show($"{question.QuestionTitle} {question.QuestionDescription} {question.QuestionTypeId}");
             }
             else
             {
@@ -122,7 +108,7 @@ namespace TestingService.ViewModels
             }
             foreach (Questions item in QuestionsList)
             {
-                if ((item.QuestionTitle == null) /*|| item.QuestionTypeId == 0*/)
+                if (item.QuestionTitle == null)
                 {
                     MessageBox.Show("Не все поля заполнены!");
                     return false;
@@ -133,7 +119,7 @@ namespace TestingService.ViewModels
 
         private void NewQuestion()
         {
-            QuestionsList.Add(new Questions());
+            QuestionsList.Add(new Questions { QuestionTypeId = 3});
         }
     }
 }

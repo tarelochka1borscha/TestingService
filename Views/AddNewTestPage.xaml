@@ -13,35 +13,33 @@
             <RowDefinition Height="0.1*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Margin="30,0,0,0">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Command="{Binding SaveTest}" Content="Сохранить тест" Width="150" Height="30" Margin="10,0,0,0"/>
             <Button Command="{Binding AddNewQuestion}" Content="Добавить вопрос" Width="150" Height="30" Margin="50,0,0,0"/>
         </StackPanel>
-        <StackPanel Grid.Row="1" Margin="30,0,0,0" HorizontalAlignment="Left">
-            <TextBlock Text="Название теста*"/>
-            <TextBox Text="{Binding TestTitle}" Width="500" TextWrapping="Wrap"/>
-            <TextBlock Text="Описание теста" Margin="0,10,0,0"/>
-            <TextBox Text="{Binding TestDescription}" Width="500" TextWrapping="Wrap"/>
-
-            <ListView ItemsSource="{Binding QuestionsList}" Margin="0,10,0,10" Background="Transparent">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <TextBlock Text="Заголовок вопроса*"/>
-                            <TextBox Text="{Binding QuestionTitle}" Width="300" TextWrapping="Wrap" Margin="0,5,0,10"/>
-                            <TextBlock Text="Описание"/>
-                            <TextBox Text="{Binding QuestionDescription}" Width="300" TextWrapping="Wrap" Margin="0,5,0,10"/>
-                            <TextBlock Text="Тип вопроса*"/>
-                            <ComboBox ItemsSource="{Binding DataContext.QuestionTypesList, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                      DisplayMemberPath = "QuestionTypeTitle"
-                                      SelectedItem="{Binding SelectedQuestion, Mode=TwoWay}"
-                                      Width="300"
-                                      Margin="0,5,0,10"/>
-                            <Button Command="{Binding AddNewAnswer}" Content="Добавить ответ" Width="150"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackPanel>
+        <DockPanel Grid.Row="1" HorizontalAlignment="Center">
+            <StackPanel DockPanel.Dock="Top">
+                <TextBlock Text="Название теста*"/>
+                <TextBox Text="{Binding TestTitle}" Width="500" TextWrapping="Wrap"/>
+                <TextBlock Text="Описание теста" Margin="0,10,0,0"/>
+                <TextBox Text="{Binding TestDescription}" Width="500" TextWrapping="Wrap"/>
+            </StackPanel>
+            <ScrollViewer>
+                <ListView ItemsSource="{Binding QuestionsList}" Margin="0,10,0,10" Background="Transparent">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="Заголовок вопроса*"/>
+                                <TextBox Text="{Binding QuestionTitle}" Width="300" TextWrapping="Wrap" Margin="0,5,0,10"/>
+                                <TextBlock Text="Описание"/>
+                                <TextBox Text="{Binding QuestionDescription}" Width="300" TextWrapping="Wrap" Margin="0,5,0,10"/>
+                                <Button Command="{Binding AddNewAnswer}" Content="Добавить ответ" Width="150"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollViewer>
+            
+        </DockPanel>
     </Grid>
 </Page>
