@@ -114,7 +114,20 @@ namespace TestingService.ViewModels
                 {
                     MessageBox.Show("Неопознанная ошибка");
                     Console.WriteLine(ex.Message);
+                    return;
                 }
+
+                DatabaseConnection.connection.Tests.Add(_currentTest);
+                DatabaseConnection.connection.SaveChanges();
+
+                 foreach (Questions question in QuestionsList)
+                {
+                    question.QuestionTestId = _currentTest.TestId;
+                    DatabaseConnection.connection.Questions.Add(question);
+                }
+                 DatabaseConnection.connection.SaveChanges();
+                MessageBox.Show("Тест успешно добавлен");
+                Back();
             }
             else
             {
@@ -124,7 +137,7 @@ namespace TestingService.ViewModels
 
         private bool CheckingData()
         {
-            if ((TestTitle == null) || (QuestionsList.Count <= 0))
+            if ((TestTitle == null) || (QuestionsList.Count < 1))
             {
                 MessageBox.Show("Не все поля заполнены!");
                 return false;
