@@ -34,8 +34,7 @@
                             <TextBlock Text="Тип вопроса*"/>
                             <ComboBox ItemsSource="{Binding DataContext.QuestionTypesList, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                       DisplayMemberPath = "QuestionTypeTitle"
-                                      SelectedValuePath="QuestionTypeId" 
-                                      SelectedValue="{Binding DataContext.SelectedQuestionType, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=ListView}}"
+                                      SelectedItem="{Binding SelectedQuestion, Mode=TwoWay}"
                                       Width="300"
                                       Margin="0,5,0,10"/>
                             <Button Command="{Binding AddNewAnswer}" Content="Добавить ответ" Width="150"/>

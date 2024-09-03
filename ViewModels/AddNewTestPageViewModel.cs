@@ -25,16 +25,16 @@ namespace TestingService.ViewModels
         public string QuestionTitle { get; set; }
         public string QuestionDescription { get; set; }
 
-        private int _selectedQuestionType = 1;
-        public int SelectedQuestionType
+        private QuestionTypes _selectedQuestion;
+        public QuestionTypes SelectedQuestion
         {
-            get => _selectedQuestionType;
+            get => _selectedQuestion;
             set
             {
-                if (_selectedQuestionType != value)
+                if (_selectedQuestion != value)
                 {
-                    _selectedQuestionType = value;
-                    NotifyPropertyChanged(nameof(SelectedQuestionType));
+                    _selectedQuestion = value;
+                    NotifyPropertyChanged(nameof(SelectedQuestion));
                 }
             }
         }
@@ -102,7 +102,7 @@ namespace TestingService.ViewModels
                     //item.QuestionTypeId = SelectedQuestionType;
                     MessageBox.Show($"{item.QuestionTitle} {item.QuestionTypeId}");
 
-                    MessageBox.Show("" + SelectedQuestionType);
+                    MessageBox.Show("" + SelectedQuestion.QuestionTypeId);
                 }
 
                 
